@@ -1,5 +1,12 @@
-Learning Backend
+# Learning Backend
 
-Yarn dev to run in development with nodemon (localhost:4000)
+## Development
+```
+Yarn dev
+```
 
-Yarn build and Yarn start for production
+## Production
+```
+Yarn build
+Yarn start
+```
