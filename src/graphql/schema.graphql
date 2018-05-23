@@ -1,4 +1,3 @@
-const typeDefs =`
 type Query {
   users: [User!]!
   user(id: ID!): User
@@ -20,6 +19,3 @@ type AuthPayload {
   token: String!
   user: User!
 }
-`
-
-export default typeDefs
