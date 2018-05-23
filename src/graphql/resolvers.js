@@ -3,12 +3,29 @@ import jwt from 'jsonwebtoken';
 
 import User from '../database/schema/user.js';
 import createToken from './createToken';
-import { RegisterError, LoginError } from './errorHandler';
+import getUser from './getUser';
+import { RegisterError, LoginError, AuthError } from './errorHandler';
 
 const resolvers = {
 	Query: {
-		users: () => User.find({}),
-		user: (_, { id }) => User.findOne({ _id: id })
+		users: async (parent, args, ctx, info) => {
+			const userId = await getUser(ctx);
+
+			if (!userId) {
+				throw new AuthError();
+			}
+
+			return User.find({});
+		},
+		user: async (parent, { id }, ctx, info) => {
+			const userId = await getUser(ctx);
+
+			if (!userId) {
+				throw new AuthError();
+			}
+
+			return User.findOne({ _id: id });
+		}
 	},
 	Mutation: {
 		register: async (parent, { name, email, password }) => {
